@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import HomeView from "../HomeView";
+import LoginView from "../LoginView";
 import { AllProviders } from "../../../testUtils";
 
-describe("HomeView", () => {
+describe("LoginView", () => {
   it("Should render a headline", () => {
     render(
       <AllProviders>
-        <HomeView />
+        <LoginView />
       </AllProviders>
     );
-    const headline = screen.getByText(/This is a story/i);
+    const headline = screen.getByLabelText(/Login/i);
     expect(headline).toBeInTheDocument();
   });
 });
