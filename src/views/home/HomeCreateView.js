@@ -3,7 +3,6 @@ import HomeFormFields from "./components/HomeFormFields";
 
 export default function HomeCreateView() {
   const handleFinish = async (values) => {
-    console.log(values);
     message.success("Story created!");
   };
 

@@ -1,5 +1,4 @@
-import { Form, Input, Checkbox, Button } from "antd";
-import styled from "@emotion/styled";
+import { Button, Checkbox, Form, Input } from "antd";
 
 export default function LoginView() {
   return (

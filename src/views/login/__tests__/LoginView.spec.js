@@ -9,7 +9,7 @@ describe("LoginView", () => {
         <LoginView />
       </AllProviders>
     );
-    const headline = screen.getByLabelText(/Login/i);
+    const headline = screen.getByLabelText(/Username/i);
     expect(headline).toBeInTheDocument();
   });
 });

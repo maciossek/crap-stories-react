@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { AllProviders } from "../../../testUtils";
 import HomeCreateView from "../HomeCreateView";
 
+jest.mock("async-validator");
+
 describe("HomeCreateView", () => {
   it("should show a success message", async () => {
     render(
