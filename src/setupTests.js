@@ -3,6 +3,9 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
+import { setupServer } from "msw/node";
+import defaultHandlers from "../mockdata/mockRequests";
+
 global.matchMedia =
   global.matchMedia ||
   function () {
@@ -11,3 +14,15 @@ global.matchMedia =
       removeListener: jest.fn(),
     };
   };
+
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  clear: jest.fn(),
+};
+global.localStorage = localStorageMock;
+global.server = setupServer(...defaultHandlers);
+
+beforeAll(() => global.server.listen());
+afterEach(() => global.server.resetHandlers());
+afterAll(() => global.server.close());

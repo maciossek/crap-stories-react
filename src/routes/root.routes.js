@@ -11,7 +11,7 @@ export default function RootRoutes() {
         <Route
           path="*"
           element={
-            <RequireAuth isLoggedIn>
+            <RequireAuth isLoggedIn={false}>
               <ProtectedLayout />
             </RequireAuth>
           }
