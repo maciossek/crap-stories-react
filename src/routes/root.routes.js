@@ -1,15 +1,22 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import NotFound from "../views/error/NotFoundView";
-import { RouteName } from "./routesnames";
-import HomeRoutes from "../views/home/Home.routes";
+/* istanbul ignore file */
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProtectedLayout from "./ProtectedLayout";
+import PublicLayout from "./PublicLayout";
+import RequireAuth from "./components/RequireAuth";
 
 export default function RootRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to={RouteName.HOME} />} />
-        <Route path={`${RouteName.HOME}/*`} element={<HomeRoutes />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <RequireAuth isLoggedIn={false}>
+              <ProtectedLayout />
+            </RequireAuth>
+          }
+        />
+        <Route path="/public/*" element={<PublicLayout />} />
       </Routes>
     </BrowserRouter>
   );
