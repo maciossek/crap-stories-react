@@ -38,10 +38,10 @@ jobs:
           name: codecov-umbrella # optional
 
   deploy:
-    name: Deploy on staging
+    name: Deploy
     runs-on: ubuntu-latest
-    environment: staging
     needs: [test-and-build]
+    if: ${{ github.event.pull_request.merged }}
 
     steps:
       - uses: actions/checkout@v3
