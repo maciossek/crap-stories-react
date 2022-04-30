@@ -3,10 +3,11 @@ import Story from "./components/Story";
 import { Button, Space } from "antd";
 import { Link } from "react-router-dom";
 import { RouteName } from "../../routes/routesnames";
-import axios from "../../config/axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../../user/userReducer";
+import { useLazyQuery } from "@apollo/client";
+import getRandomStoryQuery from "./gql/getRandomStory.query";
 
 const StoryContainer = styled.div`
   display: flex;
@@ -20,29 +21,24 @@ const StoryContainer = styled.div`
 
 export default function HomeView() {
   const dispatch = useDispatch();
-  const [story, setStory] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const fetchRandomStory = async () => {
-    const res = await axios.get("/story/random");
-    setStory(res.data);
-    setLoading(false);
-  };
+  const [getRandomStory, { loading, error, data }] =
+    useLazyQuery(getRandomStoryQuery);
 
   useEffect(() => {
-    fetchRandomStory();
-  }, []);
+    getRandomStory();
+  }, [getRandomStory]);
 
-  const handleRandom = () => fetchRandomStory();
+  const handleRandom = () => getRandomStory();
   const handleLogout = () => dispatch(resetUser());
 
-  if (loading) {
+  if (loading || !data) {
     return <div>Loading...</div>;
   }
 
   return (
     <StoryContainer>
-      <Story story={story} />
+      <Story story={data.getRandomStory.story} />
       <div style={{ marginTop: "30px" }}>
         <Space align="center">
           <Button type="primary" onClick={handleRandom}>
