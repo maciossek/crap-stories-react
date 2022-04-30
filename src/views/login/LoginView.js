@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Alert, Button, Form, Input, message } from "antd";
 import auth0 from "../../config/auth0";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser, resetUser } from "./../../user/userReducer";
 
 export default function LoginView() {
+  const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
   const locationState = location.state;
@@ -19,10 +22,11 @@ export default function LoginView() {
       (err, authResult) => {
         if (err) {
           setErrorMessage(`Login failed: ${err.description}`);
+          dispatch(resetUser());
           return;
         }
         message.success("Login successful");
-        localStorage.setItem("accessToken", authResult.accessToken);
+        dispatch(updateUser({ accessToken: authResult.accessToken }));
 
         if (locationState) {
           navigate(locationState.from);

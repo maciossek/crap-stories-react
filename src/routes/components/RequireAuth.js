@@ -1,16 +1,13 @@
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
-export default function ProtectedRoute({ children }) {
+export default function RequireAuth({ children }) {
+  const user = useSelector((state) => state.user);
+
   const location = useLocation();
 
-  const logout = async () => {
-    localStorage.clear("accessToken");
-  };
-
-  if (localStorage.getItem("accessToken")) {
+  if (user.isAuthenticated) {
     return children;
-  } else {
-    logout();
   }
 
   return <Navigate to="/public/login" state={{ from: location }} />;

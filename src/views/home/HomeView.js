@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { RouteName } from "../../routes/routesnames";
 import axios from "../../config/axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../user/userReducer";
 
 const StoryContainer = styled.div`
   display: flex;
@@ -17,6 +19,7 @@ const StoryContainer = styled.div`
 `;
 
 export default function HomeView() {
+  const dispatch = useDispatch();
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +34,7 @@ export default function HomeView() {
   }, []);
 
   const handleRandom = () => fetchRandomStory();
+  const handleLogout = () => dispatch(resetUser());
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,6 +52,10 @@ export default function HomeView() {
           <Link to={`${RouteName.HOME}/create`}>
             <Button type="primary">add one yourself</Button>
           </Link>
+          <span>or</span>
+          <Button type="ghost" onClick={handleLogout}>
+            Logout
+          </Button>
         </Space>
       </div>
     </StoryContainer>

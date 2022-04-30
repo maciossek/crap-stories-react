@@ -23,6 +23,12 @@ const localStorageMock = {
 global.localStorage = localStorageMock;
 global.server = setupServer(...defaultHandlers);
 
+global.storage = {
+  store: {},
+  getItem: (key) => this.store[key],
+  setItem: (key, value) => (this.store[key] = value),
+};
+
 beforeAll(() => global.server.listen());
 afterEach(() => global.server.resetHandlers());
 afterAll(() => global.server.close());
