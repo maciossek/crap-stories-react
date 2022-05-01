@@ -6,17 +6,21 @@ import { Provider } from "react-redux";
 import store from "./config/redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { ApolloProvider } from "@apollo/client";
+import apClient from "./config/apollo";
 
 const persistor = persistStore(store);
 
 export default function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RootRoutes />
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
+    <ApolloProvider client={apClient()}>
+      <ThemeProvider theme={defaultTheme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <RootRoutes />
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
