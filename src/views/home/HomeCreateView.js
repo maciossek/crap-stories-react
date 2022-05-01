@@ -24,8 +24,7 @@ export default function HomeCreateView() {
     }
   };
 
-  const [createThreeasset, { data, error, loading }] =
-    useMutation(createStoryMutation);
+  const [createThreeasset, { loading }] = useMutation(createStoryMutation);
 
   return (
     <Form

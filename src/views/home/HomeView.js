@@ -22,8 +22,7 @@ const StoryContainer = styled.div`
 export default function HomeView() {
   const dispatch = useDispatch();
 
-  const [getRandomStory, { loading, error, data }] =
-    useLazyQuery(getRandomStoryQuery);
+  const [getRandomStory, { loading, data }] = useLazyQuery(getRandomStoryQuery);
 
   useEffect(() => {
     getRandomStory();
