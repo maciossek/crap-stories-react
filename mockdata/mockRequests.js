@@ -22,6 +22,19 @@ const storyHandlers = [
   ),
 ];
 
-export const defaultHandlers = [...storyHandlers];
+const signedUrlHandlers = [
+  graphql.query("SignedUrlQuery", (req, res, ctx) =>
+    res(
+      ctx.data({
+        generateUrl: { signedUrl: "signed-url", success: true, errors: null },
+      })
+    )
+  ),
+  rest.put(`signed-url`, (req, res, ctx) => {
+    return res(ctx.json({ msg: "ok" }));
+  }),
+];
+
+export const defaultHandlers = [...storyHandlers, ...signedUrlHandlers];
 
 export default defaultHandlers;
