@@ -1,22 +1,20 @@
 import { useState } from "react";
 import env from "../../../config/env";
+import axios from "../../../config/axios";
 
 export default function useStory() {
   const [randomStory, setRandomStory] = useState();
   const [loading, setLoading] = useState(true);
 
   const getRandomStory = async () => {
-    console.log("getRandomStory");
     setLoading(true);
-    const response = await fetch(`${env.API_ENDPOINT}/story/random`);
-
-    if (!response.ok) {
-      throw Error("wat");
+    try {
+      const response = await axios.get(`/story/random`);
+      setLoading(false);
+      setRandomStory(response.data);
+    } catch (err) {
+      throw err;
     }
-
-    const data = await response.json();
-    setLoading(false);
-    setRandomStory(data);
   };
 
   return {

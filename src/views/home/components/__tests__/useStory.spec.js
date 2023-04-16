@@ -38,9 +38,9 @@ describe("useStory", () => {
     const { result } = renderHook(() => useStory(), { wrapper });
 
     await act(async () => {
-      await expect(result.current.operations.getRandomStory()).rejects.toEqual(
-        Error("wat")
-      );
+      await expect(
+        result.current.operations.getRandomStory()
+      ).rejects.toHaveProperty("message");
     });
   });
 });

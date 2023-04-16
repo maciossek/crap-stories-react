@@ -25,10 +25,8 @@ export default function HomeView() {
 
   useEffect(() => {
     if (state.loading && !state.randomStory) {
-      debugger;
       operations.getRandomStory();
     }
-    console.log("use");
   }, [state, operations]);
 
   return (

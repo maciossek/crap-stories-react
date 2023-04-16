@@ -1,14 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
 
-export default function ProtectedRoute({ isLoggedIn, children }) {
+export default function ProtectedRoute({ children }) {
   const location = useLocation();
 
   const logout = async () => {
-    // TODO signout
-    console.log("you are logged out");
+    localStorage.clear("accessToken");
   };
 
-  if (isLoggedIn) {
+  if (localStorage.getItem("accessToken")) {
     return children;
   } else {
     logout();

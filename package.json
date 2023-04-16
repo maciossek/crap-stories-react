@@ -58,6 +58,9 @@
       "json",
       "lcov",
       "text"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!axios).+(js|jsx)$"
     ]
   }
 }

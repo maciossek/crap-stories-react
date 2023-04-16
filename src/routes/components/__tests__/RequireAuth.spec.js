@@ -19,14 +19,19 @@ describe("RequireAuth", () => {
   });
 
   it("Should let us through if we are logged in", async () => {
+    const spy = jest
+      .spyOn(window.localStorage.__proto__, "getItem")
+      .mockImplementation(() => "asd");
+
     render(
       <AllProviders>
-        <RequireAuth isLoggedIn>
+        <RequireAuth>
           <p>crap stories</p>
         </RequireAuth>
       </AllProviders>
     );
     const headline = await screen.findByText(/Crap stories/i);
     expect(headline).toBeInTheDocument();
+    spy.mockReset();
   });
 });
