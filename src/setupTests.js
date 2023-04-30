@@ -15,12 +15,6 @@ global.matchMedia =
     };
   };
 
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  clear: jest.fn(),
-};
-global.localStorage = localStorageMock;
 global.server = setupServer(...defaultHandlers);
 
 beforeAll(() => global.server.listen());

@@ -4,6 +4,8 @@ import LoginView from "../LoginView";
 import { AllProviders } from "../../../testUtils";
 import auth0 from "../../../config/auth0";
 
+jest.mock("async-validator");
+
 describe("LoginView", () => {
   it("should enable a user to login", async () => {
     const spy = jest

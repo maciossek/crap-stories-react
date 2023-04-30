@@ -33,24 +33,6 @@ jobs:
           file: ./coverage/cobertura-coverage.xml
           flags: unittests # optional
           name: codecov-umbrella # optional
-      - name: ⬆️ Upload build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: ./build
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: [test-and-build]
-    # if: ${{ github.event.pull_request.merged }}
-
-    steps:
-      - name: ⬇️ Download build/ folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: ./build
       - name: 🐳 Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -63,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./infrastructure/docker/Dockerfile
+          file: ./infrastructure/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:latest
